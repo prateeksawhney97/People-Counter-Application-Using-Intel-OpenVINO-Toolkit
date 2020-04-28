@@ -70,8 +70,8 @@ def build_argparser():
 
 def connect_mqtt():
     ### TODO: Connect to the MQTT client ###
-    client = None
-
+    client = mqtt.Client()
+    client.connect(MQTT_HOST, MQTT_PORT, MQTT_KEEPALIVE_INTERVAL)
     return client
 
 
@@ -90,7 +90,7 @@ def infer_on_stream(args, client):
     prob_threshold = args.prob_threshold
 
     ### TODO: Load the model through `infer_network` ###
-
+    n, c, h, w = infer_network.load_model(args.model, args.device, 1, 1, cur_request_id, args.cpu_extension)[1]
     ### TODO: Handle the input stream ###
 
     ### TODO: Loop until stream is over ###
