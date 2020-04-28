@@ -68,6 +68,21 @@ def build_argparser():
     return parser
 
 
+def ssd_out(frame, result):
+    current_count = 0
+    for obj in result[0][0]:
+        # Draw bounding box for object when it's probability is more than
+        #  the specified threshold
+        if obj[2] > prob_threshold:
+            xmin = int(obj[3] * initial_w)
+            ymin = int(obj[4] * initial_h)
+            xmax = int(obj[5] * initial_w)
+            ymax = int(obj[6] * initial_h)
+            cv2.rectangle(frame, (xmin, ymin), (xmax, ymax), (0, 55, 255), 1)
+            current_count = current_count + 1
+    return frame, current_count
+
+
 def connect_mqtt():
     ### TODO: Connect to the MQTT client ###
     client = mqtt.Client()
@@ -177,7 +192,7 @@ def infer_on_stream(args, client):
     client.disconnect()
     infer_network.clean()
 
-    
+
 
 def main():
     """
