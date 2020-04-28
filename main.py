@@ -92,30 +92,92 @@ def infer_on_stream(args, client):
     ### TODO: Load the model through `infer_network` ###
     n, c, h, w = infer_network.load_model(args.model, args.device, 1, 1, cur_request_id, args.cpu_extension)[1]
     ### TODO: Handle the input stream ###
+    if args.input == 'CAM':
+        input_stream = 0
 
+    elif args.input.endswith('.jpg') or args.input.endswith('.bmp') :
+        single_image_mode = True
+        input_stream = args.input
+    else:
+        input_stream = args.input
+        assert os.path.isfile(args.input), "Specified file doesn't exist"
+
+    cap = cv2.VideoCapture(input_stream)
+
+    if input_stream:
+        cap.open(args.input)
+    prob_threshold = args.prob_threshold
+    if not cap.isOpened():
+        log.error("ERROR! Unable to open video source")
+    global initial_w, initial_h, prob_threshold
+    prob_threshold = args.prob_threshold
+    initial_w = cap.get(3)
+    initial_h = cap.get(4)
     ### TODO: Loop until stream is over ###
-
+    while cap.isOpened():
         ### TODO: Read from the video capture ###
-
+        flag, frame = cap.read()
+        if not flag:
+            break
+        key_pressed = cv2.waitKey(60)
         ### TODO: Pre-process the image as needed ###
-
+        image = cv2.resize(frame, (w, h))
+        image = image.transpose((2, 0, 1))
+        image = image.reshape((n, c, h, w))
         ### TODO: Start asynchronous inference for specified request ###
-
+        inf_start = time.time()
+        infer_network.exec_net(cur_request_id, image)
         ### TODO: Wait for the result ###
-
+        if infer_network.wait(cur_request_id) == 0:
             ### TODO: Get the results of the inference request ###
-
+            det_time = time.time() - inf_start
             ### TODO: Extract any desired stats from the results ###
-
+            result = infer_network.get_output(cur_request_id)
             ### TODO: Calculate and send relevant information on ###
             ### current_count, total_count and duration to the MQTT server ###
+            frame, current_count = ssd_out(frame, result)
             ### Topic "person": keys of "count" and "total" ###
+            inf_time_message = "Inference time: {:.3f}ms"\
+                                   .format(det_time * 1000)
+            cv2.putText(frame, inf_time_message, (15, 15), cv2.FONT_HERSHEY_COMPLEX, 0.5, (200, 10, 10), 1)
+
+            if current_count > last_count:
+                start_time = time.time()
+                total_count = total_count + current_count - last_count
+                client.publish("person", json.dumps({"total": total_count}))
+            
+
+            # Person duration in the video is calculated
+            if current_count < last_count:
+                duration = int(time.time() - start_time)
+                # Publish messages to the MQTT server
+                client.publish("person/duration",
+                               json.dumps({"duration": duration}))
             ### Topic "person/duration": key of "duration" ###
+            if current_count < last_count:
+                duration = int(time.time() - start_time)
+                # Publish messages to the MQTT server
+                client.publish("person/duration", json.dumps({"duration": duration}))
+        
 
+            client.publish("person", json.dumps({"count": current_count}))
+            last_count = current_count
+
+            if key_pressed == 27:
+                break
         ### TODO: Send the frame to the FFMPEG server ###
-
+        sys.stdout.buffer.write(frame)  
+        sys.stdout.flush()
         ### TODO: Write an output image if `single_image_mode` ###
+        if single_image_mode:
+            cv2.imwrite('output_image.jpg', frame)
 
+    cap.release()
+    cv2.destroyAllWindows()
+    client.disconnect()
+    infer_network.clean()
+
+    
 
 def main():
     """
