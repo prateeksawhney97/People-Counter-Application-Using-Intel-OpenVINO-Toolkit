@@ -35,7 +35,7 @@ The counter will use the Inference Engine included in the Intel® Distribution o
  
 TensorFlow Object Detection Model Zoo (https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md) contains many pre-trained models on the coco dataset. Ssd_inception_v2_coco and faster_rcnn_inception_v2_coco performed good as compared to rest of the models, but, in this project, faster_rcnn_inception_v2_coco is used which is fast in detecting people with less errors. Intel openVINO already contains extensions for custom layers used in TensorFlow Object Detection Model Zoo.
 
-
+The model can't be the existing models provided by Intel. SO, converting the TensorFlow model to Intermediate Representation (IR) or OpenVINO IR format. The command used is given below:-
 
 ### Comparing Model Performance
 
