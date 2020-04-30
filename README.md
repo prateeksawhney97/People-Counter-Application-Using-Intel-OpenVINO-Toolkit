@@ -2,6 +2,7 @@
 
 The people counter application demonstrates how to create a smart video IoT solution using Intel® hardware and software tools. The app will detect people in a designated area, providing the number of people in the frame, average duration of people in frame, and total count. This project is a part of Intel Edge AI for IOT Developers Nanodegree program by udacity.
 
+Youtube Link- 
 
 ![screenshot_1](https://user-images.githubusercontent.com/34116562/80679006-ab9dc000-8ad9-11ea-9756-1fdb898276b2.png)
 
@@ -58,14 +59,14 @@ python /opt/intel/openvino/deployment_tools/model_optimizer/mo.py --input_model 
 
 ### Comparing Model Performance
 
-Model -1 Ssd_inception_v2_coco
+Model -1: Ssd_inception_v2_coco
 
 Converted the model to intermediate representation using the following command. Further, this model lacked accuracy as it didn't detect people correctly in the video. Made some alterations to the threshold for increasing its accuracy but the results were not fruitful.
 ```
 python /opt/intel/openvino/deployment_tools/model_optimizer/mo.py --input_model ssd_inception_v2_coco_2018_01_28/frozen_inference_graph.pb --tensorflow_object_detection_api_pipeline_config pipeline.config --reverse_input_channels --tensorflow_use_custom_operations_config /opt/intel/openvino/deployment_tools/model_optimizer/extensions/front/tf/ssd_v2_support.json
 ```
 
-Model -2 Faster_rcnn_inception_v2_coco
+Model -2: Faster_rcnn_inception_v2_coco
 
 Converted the model to intermediate representation using the following command. Model -2 i.e. Faster_rcnn_inception_v2_coco, performed really well in the output video. After using a threshold of 0.4, the model works better than all the previous approaches.
 ```
@@ -79,3 +80,9 @@ python /opt/intel/openvino/deployment_tools/model_optimizer/mo.py --input_model 
 
 
 ### Running the Main Application
+
+After converting the downloaded model to the OpenVINO IR, all the three servers can be started on separate terminals i.e. 
+
+-   MQTT Mosca server 
+-   Node.js* Web server
+-   FFmpeg server
