@@ -16,12 +16,12 @@ The counter will use the Inference Engine included in the Intel® Distribution o
 
 ## Requirements
 
-### Hardware
+#### Hardware
 
 * 6th to 10th generation Intel® Core™ processor with Iris® Pro graphics or Intel® HD Graphics.
 * OR use of Intel® Neural Compute Stick 2 (NCS2)
 
-### Software
+#### Software
 
 *   Intel® Distribution of OpenVINO™ toolkit 2019 R3 release
 *   Node v6.17.1
