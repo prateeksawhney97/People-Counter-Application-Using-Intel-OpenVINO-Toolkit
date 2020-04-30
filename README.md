@@ -3,6 +3,8 @@
 The people counter application demonstrates how to create a smart video IoT solution using Intel® hardware and software tools. The app will detect people in a designated area, providing the number of people in the frame, average duration of people in frame, and total count. This project is a part of Intel Edge AI for IOT Developers Nanodegree program by udacity.
 
 
+![screenshot_1](https://user-images.githubusercontent.com/34116562/80679006-ab9dc000-8ad9-11ea-9756-1fdb898276b2.png)
+
 
 ### How it works?
 
