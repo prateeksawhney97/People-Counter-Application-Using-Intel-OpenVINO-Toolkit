@@ -79,6 +79,7 @@ This application could keep a check on the number of people in a particular area
 
 ### Effects on End user needs
 
+Various insights could be drawn on the model by testing it with different videos and analyzing the model performance on low light input videos. This would be an important factor in determining the best model for the given scenario.
 
 ### Running the Main Application
 
