@@ -37,6 +37,11 @@ TensorFlow Object Detection Model Zoo (https://github.com/tensorflow/models/blob
 
 The model can't be the existing models provided by Intel. SO, converting the TensorFlow model to Intermediate Representation (IR) or OpenVINO IR format. The command used is given below:-
 
+
+```
+python /opt/intel/openvino/deployment_tools/model_optimizer/mo.py --input_model faster_rcnn_inception_v2_coco/frozen_inference_graph.pb --tensorflow_object_detection_api_pipeline_config pipeline.config --reverse_input_channels --tensorflow_use_custom_operations_config /opt/intel/openvino/deployment_tools/model_optimizer/extensions/front/tf/faster_rcnn_support.json
+```
+
 ### Comparing Model Performance
 
 
