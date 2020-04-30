@@ -35,18 +35,22 @@ The counter will use the Inference Engine included in the Intel® Distribution o
  
 TensorFlow Object Detection Model Zoo (https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md) contains many pre-trained models on the coco dataset. Ssd_inception_v2_coco and faster_rcnn_inception_v2_coco performed good as compared to rest of the models, but, in this project, faster_rcnn_inception_v2_coco is used which is fast in detecting people with less errors. Intel openVINO already contains extensions for custom layers used in TensorFlow Object Detection Model Zoo.
 
-Downloading the model from the GitHub repository of Tensorflow Object Detection Model Zoo by the following command:- 
+Downloading the model from the GitHub repository of Tensorflow Object Detection Model Zoo by the following command:
 
 ```
 wget http://download.tensorflow.org/models/object_detection/faster_rcnn_inception_v2_coco_2018_01_28.tar.gz
 ```
-Extracting the tar.gz file by the following command:- 
+Extracting the tar.gz file by the following command:
 
 ```
 tar -xvf faster_rcnn_inception_v2_coco_2018_01_28.tar.gz
 ```
+Changing the directory to the extracted folder of the downloaded model:
 
-The model can't be the existing models provided by Intel. SO, converting the TensorFlow model to Intermediate Representation (IR) or OpenVINO IR format. The command used is given below:-
+```
+cd faster_rcnn_inception_v2_coco_2018_01_28
+```
+The model can't be the existing models provided by Intel. So, converting the TensorFlow model to Intermediate Representation (IR) or OpenVINO IR format. The command used is given below:
 
 ```
 python /opt/intel/openvino/deployment_tools/model_optimizer/mo.py --input_model faster_rcnn_inception_v2_coco/frozen_inference_graph.pb --tensorflow_object_detection_api_pipeline_config pipeline.config --reverse_input_channels --tensorflow_use_custom_operations_config /opt/intel/openvino/deployment_tools/model_optimizer/extensions/front/tf/faster_rcnn_support.json
