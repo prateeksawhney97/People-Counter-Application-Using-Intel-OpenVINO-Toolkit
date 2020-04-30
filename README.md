@@ -33,6 +33,7 @@ The counter will use the Inference Engine included in the Intel® Distribution o
   
 ### Explaining Model Selection & Custom Layers
 
+https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md
 
 ### Comparing Model Performance
 
