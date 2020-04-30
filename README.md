@@ -137,3 +137,10 @@ python main.py -i resources/Pedestrian_Detect_2_1_1.mp4 -m faster_rcnn_inception
 ```
 
 ### Screenshots:
+
+![Screenshot from 2020-04-30 11-50-23](https://user-images.githubusercontent.com/34116562/80721855-5a62f000-8b1c-11ea-99d6-e702766778a1.png)
+![Screenshot from 2020-04-30 11-50-43](https://user-images.githubusercontent.com/34116562/80721862-5c2cb380-8b1c-11ea-9a54-9f0ad004a61b.png)
+![Screenshot from 2020-04-30 11-51-26](https://user-images.githubusercontent.com/34116562/80721867-5d5de080-8b1c-11ea-9a4e-ab1a2e79af88.png)
+![Screenshot from 2020-04-30 11-50-30](https://user-images.githubusercontent.com/34116562/80721874-5fc03a80-8b1c-11ea-94e5-884873a9719f.png)
+![Screenshot from 2020-04-30 11-50-58](https://user-images.githubusercontent.com/34116562/80721880-62229480-8b1c-11ea-8fc0-46d5be652465.png)
+![Screenshot from 2020-04-30 11-51-35](https://user-images.githubusercontent.com/34116562/80721882-6353c180-8b1c-11ea-84df-ce3a2a940b9f.png)
