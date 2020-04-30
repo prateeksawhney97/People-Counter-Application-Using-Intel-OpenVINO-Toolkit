@@ -72,6 +72,20 @@ Converted the model to intermediate representation using the following command. 
 ```
 python /opt/intel/openvino/deployment_tools/model_optimizer/mo.py --input_model faster_rcnn_inception_v2_coco_2018_01_28/frozen_inference_graph.pb --tensorflow_object_detection_api_pipeline_config pipeline.config --reverse_input_channels --tensorflow_use_custom_operations_config /opt/intel/openvino/deployment_tools/model_optimizer/extensions/front/tf/faster_rcnn_support.json
 ```
+##### Comparison
+
+Comparing the two models i.e. ssd_inception_v2_coco and faster_rcnn_inception_v2_coco in terms of latency and memory, several insights were drawn. It could be clearly seen that the Latency (microseconds) and Memory (Mb) decreases in case of OpenVINO as compared to plain Tensorflow model.
+
+| Model/Framework                             | Latency (microseconds)            | Memory (Mb) |
+| -----------------------------------         |:---------------------------------:| -------:|
+| ssd_inception_v2_coco (plain TF)            | 222                               | 538    |
+| ssd_inception_v2_coco (OpenVINO)            | 155                               | 329    |
+| faster_rcnn_inception_v2_coco (plain TF)    | 1281                              | 562    |
+| faster_rcnn_inception_v2_coco (OpenVINO)    | 889                               | 281    |
+
+##### Differences in Edge and Cloud computing
+
+Edge Computing is regarded as ideal for operations with extreme latency concerns. Thus, medium scale companies that have budget limitations can use edge computing to save financial resources. Cloud Computing is more suitable for projects and organizations which deal with massive data storage. 
 
 ### Model Use Cases
 
