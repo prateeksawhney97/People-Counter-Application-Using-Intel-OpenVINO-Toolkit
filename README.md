@@ -75,6 +75,7 @@ python /opt/intel/openvino/deployment_tools/model_optimizer/mo.py --input_model 
 
 ### Model Use Cases
 
+This application could keep a check on the number of people in a particular area and could be helpful where there is restriction on the number of people present in a particular area. Further, with some updations, this could also prove helpful in the current COVID-19 scenario i.e. to keep a check on the number of people in the frame.
 
 ### Effects on End user needs
 
