@@ -1,4 +1,4 @@
-# Deploying a People Counter App at the Edge
+# Deploying a People Counter Application at the Edge
 
 The people counter application demonstrates how to create a smart video IoT solution using Intel® hardware and software tools. The app will detect people in a designated area, providing the number of people in the frame, average duration of people in frame, and total count. This project is a part of Intel Edge AI for IOT Developers Nanodegree program by udacity.
 
@@ -59,14 +59,14 @@ python /opt/intel/openvino/deployment_tools/model_optimizer/mo.py --input_model 
 
 ### Comparing Model Performance
 
-Model -1: Ssd_inception_v2_coco
+Model-1: Ssd_inception_v2_coco
 
 Converted the model to intermediate representation using the following command. Further, this model lacked accuracy as it didn't detect people correctly in the video. Made some alterations to the threshold for increasing its accuracy but the results were not fruitful.
 ```
 python /opt/intel/openvino/deployment_tools/model_optimizer/mo.py --input_model ssd_inception_v2_coco_2018_01_28/frozen_inference_graph.pb --tensorflow_object_detection_api_pipeline_config pipeline.config --reverse_input_channels --tensorflow_use_custom_operations_config /opt/intel/openvino/deployment_tools/model_optimizer/extensions/front/tf/ssd_v2_support.json
 ```
 
-Model -2: Faster_rcnn_inception_v2_coco
+Model-2: Faster_rcnn_inception_v2_coco
 
 Converted the model to intermediate representation using the following command. Model -2 i.e. Faster_rcnn_inception_v2_coco, performed really well in the output video. After using a threshold of 0.4, the model works better than all the previous approaches.
 ```
@@ -87,9 +87,17 @@ After converting the downloaded model to the OpenVINO IR, all the three servers 
 -   Node.js* Web server
 -   FFmpeg server
 
-From the main directory:
 
-### Step 1 - Start the Mosca server
+#### Setting up the environment
+
+Configuring the environment to use the Intel® Distribution of OpenVINO™ toolkit one time per session by running the following command:
+```
+source /opt/intel/openvino/bin/setupvars.sh -pyver 3.5
+```
+
+Further, from the main directory:
+
+#### Step 1 - Start the Mosca server
 
 ```
 cd webservice/server/node-server
@@ -101,7 +109,7 @@ The following message is displayed, if successful:
 Mosca server started.
 ```
 
-### Step 2 - Start the GUI
+#### Step 2 - Start the GUI
 
 Opening new terminal and executing below commands:
 ```
@@ -114,21 +122,16 @@ The following message is displayed, if successful:
 webpack: Compiled successfully
 ```
 
-### Step 3 - FFmpeg Server
+#### Step 3 - FFmpeg Server
 
-Opening new terminal and executing below commands:
+Opening new terminal and executing below command:
 ```
 sudo ffserver -f ./ffmpeg/server.conf
 ```
 
-### Step 4 - Run the code
+#### Step 4 - Run the code
 
-Opening new terminal and executing below commands.
-
-#### Setting up the environment
-
-Configuring the environment to use the Intel® Distribution of OpenVINO™ toolkit one time per session by running the following command:
+Opening new terminal and executing below command:
 ```
-source /opt/intel/openvino/bin/setupvars.sh -pyver 3.5
+python main.py -i resources/Pedestrian_Detect_2_1_1.mp4 -m faster_rcnn_inception_v2_coco_2018_01_28/frozen_inference_graph.xml -l /opt/intel/openvino/deployment_tools/inference_engine/lib/intel64/libcpu_extension_sse4.so -d CPU -pt 0.4 | ffmpeg -v warning -f rawvideo -pixel_format bgr24 -video_size 768x432 -framerate 24 -i - http://0.0.0.0:3004/fac.ffm
 ```
-
