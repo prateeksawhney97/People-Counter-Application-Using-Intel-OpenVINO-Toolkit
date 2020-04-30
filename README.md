@@ -86,3 +86,49 @@ After converting the downloaded model to the OpenVINO IR, all the three servers 
 -   MQTT Mosca server 
 -   Node.js* Web server
 -   FFmpeg server
+
+From the main directory:
+
+### Step 1 - Start the Mosca server
+
+```
+cd webservice/server/node-server
+node ./server.js
+```
+
+The following message is displayed, if successful:
+```
+Mosca server started.
+```
+
+### Step 2 - Start the GUI
+
+Opening new terminal and executing below commands:
+```
+cd webservice/ui
+npm run dev
+```
+
+The following message is displayed, if successful:
+```
+webpack: Compiled successfully
+```
+
+### Step 3 - FFmpeg Server
+
+Opening new terminal and executing below commands:
+```
+sudo ffserver -f ./ffmpeg/server.conf
+```
+
+### Step 4 - Run the code
+
+Opening new terminal and executing below commands.
+
+#### Setting up the environment
+
+Configuring the environment to use the Intel® Distribution of OpenVINO™ toolkit one time per session by running the following command:
+```
+source /opt/intel/openvino/bin/setupvars.sh -pyver 3.5
+```
+
