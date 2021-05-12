@@ -53,7 +53,7 @@
     "webpack-merge": "^4.1.0"
   },
   "dependencies": {
-    "chart.js": "^2.7.0",
+    "chart.js": "^2.9.4",
     "classnames": "^2.2.5",
     "moment": "^2.18.1",
     "mqtt": "^2.13.0",
