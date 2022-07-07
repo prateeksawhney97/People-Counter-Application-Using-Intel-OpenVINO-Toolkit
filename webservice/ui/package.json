@@ -55,7 +55,7 @@
   "dependencies": {
     "chart.js": "^2.7.0",
     "classnames": "^2.2.5",
-    "moment": "^2.18.1",
+    "moment": "^2.29.4",
     "mqtt": "^2.13.0",
     "postcss-mixins": "^6.1.0",
     "prop-types": "^15.5.10",
